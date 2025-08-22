@@ -82,31 +82,31 @@
   <div class="card card-body">
     <h3 class="h5 mb-3">DEF CON 33 - Why I valued this year more than previous years…</h3>
 
-    <p>I want to say, I believe this year I was heavily involved in participating and trying new things at DEF CON. In previous years, I was more of an observer. I would watch someone do it first, then try it. It was repetitive like that the last two years I went.</p>
+<p>This year, I was all in at DEF CON, like really participating and trying new things. In past years, I’d been more of an observer. I’d hang back, watch someone else do it first, and then give it a try.</p>
 
-    <p>First, I think I attended DEF CON with a completely new mindset. After taking a year off, it gave me some space mentally and physically from the frustrations of struggling with CTFs #n00b. But when I walked into the convention and saw hackable cameras, boats, drones… I just wanted to try it all!!</p>
+<p>Taking a year off gave me time to reset. It gave me space, both mentally and physically, to shake off the frustrations of struggling through the endles-ingestion of security research.</p> 
 
-    <p>Secondly, I think my biggest flaw but also my biggest success was staying out late… til 5 a.m. (three nights in a row). Obviously, to hack and do shenanigans, there was just no way around it. Maybe I was running on adrenaline and some imaginary energy I still had left in me. But I still followed the regular 3-2-1 DEF CON Rule (sleep for at least 3 hours, eat twice, and shower once a day).</p>
+<p>This year, when I walked into the convention and saw hackable cameras, boats, drones — you name it — my first thought was, I wanted to try it all.</p>
 
-    <p>I got to make my first set of stickers this year — which was pretty exciting. And, of course, I gained popularity over those as well.</p>
+<p>Staying out until 5 a.m. three nights in a row probably wasn’t my wisest decision — but honestly, it led to some of my best experiences. To hack, network, and dive into shenanigans, you’ve got to push the limits a little. I’m pretty sure I was running on nothing but adrenaline and some imaginary energy reserve. Still, I stuck to the 3–2–1 DEF CON rule: sleep at least 3 hours, eat 2 meals, and shower once a day.</p>
 
-    <p>I talked my way into a ton of parties, met a ton of cool people, and some very well-known celebrities in our community. It was truly awe-inspiring to hear their personal stories, their tragedies, and their victories.</p>
+<p>I also made my first set of stickers this year, which was exciting — and handing them out was the easiest icebreaker ever. I made friends fast.</p>
 
-    <p>I feel that every time I attend DEF CON, I not only learn a lot but also gain different perspectives of hacking from various viewpoints. I met tons of CISOs and CEOs, hackers leading in industries of security consulting, and even a number of SANS writers.</p>
+<p>Between that and talking my way into a ton of parties, I met so many incredible people — including some of the most well-known figures in our community. Listening to their stories, hearing about their wins and hard-learned lessons, was honestly awe-inspiring.</p>
 
-    <hr>
+<p>Every time I go to DEF CON, I leave with new skills and fresh perspectives. What I love most, though, is seeing hacking through so many different lenses — from CISOs and CEOs to security researchers and SANS writers. This year was no exception.</p>
+<hr>
 
-    <h4 class="h6">System Embedding Village</h4>
-    <p>This one was nice to walk into. As someone that manages vulnerabilities, I was pretty curious as to which CVSS scores I would encounter for an exploit. For this particular camera, the buffer overflow used custom firmware that this company specifically made to exploit these cameras. However, the practice of going step-by-step was nonetheless helpful. Exploiting hardware can be tricky, as sometimes there are multiple devices or systems connected to one. I think I did this one three times.</p>
+    <h4 class="h6">System Embedding Village - Day 1</h4>
+    <p>This one was refreshing to dive into. As someone who manages vulnerabilities, I was really curious about the CVSS scores tied to this exploit. For this camera, the buffer overflow relied on custom firmware that the company had built specifically to target these devices. Even so, going through the process step-by-step was super helpful. Hardware exploitation can be tricky — sometimes there are multiple systems or devices connected, which adds complexity. I think I ran through this one at least three times just to really get the flow of it.S</p>
 
     <ol>
-      <li><strong>Running Recon Tools:</strong> Finding the vulnerable machine on the network and running nmap to enumerate hosts and identify the target device running the camera application.</li>
-      <li><strong>Reconnaissance:</strong> Due to the script being available, this wasn’t necessary, but usually, some research on how to exploit firmware is done before the attack. The buffer overflow script was given to us already. After visiting the IP, we saw that we needed to have some form of privilege.</li>
-      <li><strong>Post-Exploitation:</strong> After identifying the vulnerable system, we sent a buffer overflow to the affected device. The script manipulates the coding error to carry out malicious actions and compromise the affected device. It alters an application’s execution path and overwrites the memory element, exposing the execution path of the program to damage or data exposure. This script was obviously made specifically to exploit this device.</li>
-    </ol>
-
-    <p>From here, we accessed the affected device (through the buffer overflow) and retrieved the unencrypted admin/password.</p>
-
+  <li><strong>Reconnaissance & Scanning:</strong> Scanned the network with <code>nmap</code> to enumerate hosts and identify the device running the camera application. Normally, this phase would also involve researching the firmware to plan and execute the exploit, but in this case, the buffer overflow script had already been provided. After finding the IP and seeing a login page, the next step would typically be privilege escalation.</li>
+<p></p>
+  <li><strong>Exploitation:</strong> The camera was vulnerable to a buffer overflow, which overwrites sections of memory to alter how a program runs. The provided script was specifically crafted for this device, forcing it to reveal its admin credentials.</li>
+<p></p>
+  <li><strong>Post-Exploitation:</strong> The program crashed — a clear sign the buffer overflow executed successfully. After logging into the device, I gained root access, recovered the admin credentials for the camera, and confirmed full compromise with a “success” banner.</li>
+</ol>
     <hr>
 
     <h4 class="h6">Maritime Village — Day 1</h4>
@@ -127,40 +127,41 @@
       <li><strong>Realization:</strong> Oh shit, what am I looking at..?</li>
     </ul>
 
-    <p>AFS port 7000 was open, along with some 3000 port of UPnP, and a red light blinking on rotation.</p>
-
-    <p><strong>AFS — Andrew File System</strong> is a distributed file system (dating back to the 1980s at Carnegie Mellon University), allowing many computers on a network to share files easily, without worrying where the physical file was. This made sense — it was popular among academia. It was efficient to share a file among several different computers.</p>
+<p></p>
+    <p><strong>AFS — Andrew File System</strong> is a distributed file system (dating back to the 1980s at Carnegie Mellon University), allowing many computers on a network to share files easily, without worrying where the physical file was.</p>
 
     <p>This file server was listening on UDP port 7000, which is responsible for handling and retrieving actual file data within the AFS structure.</p>
 
     <p><strong>UPnP — Universal Plug ’n’ Play</strong> is a set of network protocols that enables devices on the same local network to easily discover, connect, and communicate without manual configuration. Think of media sharing, smart home integration, gaming, and VoIP. I can’t quite remember this one because I didn’t delve into it.</p>
+      
+    <p><strong>Blinking light - </strong> I eventually realized it was morse code. No I did not figure out what message it was sending. </p>  
 
     <p>By that time, it was the end of the first day of the con.</p>
 
     <hr>
 
     <h4 class="h6">Maritime Village — Day 2</h4>
-    <p>We thought we’d give the HavocAI a break and decided to try out the drug boat. This one was involving.</p>
+    <p>We thought we’d give the village a second try, to mess with the drug boat.</p>
 
-    <p>When I plugged into the device, I did see the PCAN protocol populate through USB.</p>
+    <p>When I connected to the device, the PCAN protocol immediately populated through USB.</p>
 
-    <p>First, you had to plug into the PCAN. Yes, PCAN is essentially the Peak CAN (Controller Area Network) interface used for automotive or industrial settings. And the NMEA 2000 is the marine networking standard built on the CAN protocol.</p>
+    <p>The setup started with plugging into the interface — PCAN, short for Peak CAN (Controller Area Network), commonly used in automotive and industrial environments. In this case, it was paired with NMEA 2000, the marine networking standard built on the CAN protocol.</p>
 
-    <p>This required some software to read the PEAK-CAN maritime protocols. So we downloaded the open-source Canboat to identify and pull the serial of the drug boat.</p>
+    <p>To read the traffic, we needed the right tools, so we downloaded the open-source Canboat utility to identify and pull the serial of the drug boat.</p>
 
-    <p>From there, we were able to see the state of PCAN, which was “DOWN.” So we sent a command to make the network say “UP.” From here, we could now listen to the traffic of the drug boat. So — like any n00b — we captured some signal and performed a replay attack. That was pretty exciting.</p>
+    <p>Once connected, we noticed the interface state showed <code>DOWN</code>. A quick command switched it to <code>UP</code>, and suddenly we could start monitoring the boat’s network traffic. Like any n00b, I captured some signals and ran a replay attack — which, honestly, was pretty exciting.</p>
 
-    <p>And to know that this simple n00b attack worked — it was shocking to learn how many boats are equipped with NMEA2000 networks, including this little drug boat. Weaknesses in network protocols could make a n00b like me capture some signal and perform a replay attack, possibly manipulating navigational devices and leading to incorrect readings. This could also lead to denial-of-service attacks and spoofing, which, in the sense of a boat, would mean falsifying the vessel’s speed data.</p>
+    <p>Seeing how simple it was to pull this off was eye-opening. So many boats run on NMEA 2000 networks, and the lack of security makes it trivial for someone like me to intercept signals and replay them, potentially manipulating navigation data or creating false readings. It also opens the door to denial-of-service attacks and spoofing — imagine falsifying a vessel’s speed or location.</p>
 
-    <p>NMEA 2000 is known for its weak authentication and lack of encrypted communication over the network.</p>
+    <p>NMEA 2000 is notorious for weak authentication and the lack of encryption in its communications.</p>
 
-    <p>All to say, I learned so much at this village. If I didn’t have human body functions and was simply a plant that could survive through photosynthesis, I could probably spend multiple days in this village. I was bummed to find out by the end of the second day that the villages on the third day were basically closed (which makes sense).</p>
+    <p>All to say, I learned so much at this village. If I didn’t have human body functions and was simply a plant that could live off photosynthesis, I could have easily spent multiple days there. By the end of the second day, though, I found out that most villages would be closed on Day 3 — which, to be fair, made sense.</p>
 
-    <p>Now you must be wondering if I ever returned that ethernet dongle?? The answer is YES. And actually, the organizer of the RF Village has invited me to join their crew on Discord.</p>
+    <p>And yes — for anyone wondering — I did return that ethernet dongle. The organizer of the RF Village even invited me to join their crew on Discord afterward.</p>
 
-    <p>He thought I gave them a random@ss sticker (that wasn’t my own, which — tbh — offended me), but after googling my name realized I was indeed REAL. So I will forever be known as the ‘Dongle Stealer.’</p>
+    <p>Funny enough, they thought I’d handed them some random-@ss sticker that wasn’t mine (which, honestly, ouch!), but after Googling my name he realized I was legit. And just like that, I’ll forever be known as the “Dongle Stealer.”</p>
 
-    <hr>
+<hr>
 
     <h4 class="h6">Day 3 — End of the Con</h4>
     <p>I had training this day. I got to make a cool multi-RF tool that can jam Wi-Fi and BLE. They also provided the firmware for taking out drones, but I figure I’d test that another day…</p>
@@ -171,13 +172,12 @@
 
     <h4 class="h6">Key Takeaways and How I Will Apply Them</h4>
 
-    <p><strong>1) Technical Growth:</strong> I now better understand how weak authentication and unencrypted communications can be exploited, and how this knowledge applies to vulnerability management in my daily role. Although this may not directly affect it, seeing these weaknesses visually demonstrated showed me how critical weak encryption can be — especially in OT systems like IP cameras, badge scanners, or conference room AV setups that often run outdated TLS, default credentials, or even cleartext traffic. These experiences will help me build better reconnaissance strategies and execute more effective vulnerability assessments.</p>
+    <p><strong>1) Technical Growth:</strong> I now better understand how weak authentication and unencrypted communications can be exploited, and how this knowledge applies to vulnerability management in my daily role. Although this may not directly affect it, seeing these weaknesses demonstrated, showed me how critical weak encryption can be — especially in OT systems like IP cameras, badge scanners, or conference room AV setups that often run outdated TLS, default credentials, or even cleartext traffic. These experiences will help me build better reconnaissance strategies and execute more effective vulnerability assessments.</p>
 
     <p><strong>2) Networking &amp; Community:</strong> Attending these events helps build connections with industry experts, hackers, and security leaders, expanding my professional network and creating more opportunities for future collaborations. Hearing firsthand experiences from CISOs, SANS authors, and researchers gave me new perspectives on scaling and prioritizing risk, as well as fostering innovation.</p>
 
-    <p><strong>3) Mindset:</strong> This year, I stopped waiting and decided to jump straight into the challenge, which taught me to trust my skills and adapt quickly.</p>
-
-    <p><strong>4) Prepping and Planning:</strong> I learned the importance of coming prepared — with the right hardware, VMs, and dongles set up — so I can maximize my time learning and experimenting. Also, realizing the importance of saying “NO” to brain juice. You may be wondering what that is — but considering it’s DEF CON, I was offered this, and I’ll just leave it up to your imagination.</p>
+      <p><strong>3) Mindset:</strong> This year, I skipped the “wait and watch” approach and jumped straight into the challenges. It taught me to stay calm when I didn’t know something, break problems down step-by-step, and keep moving forward. And yes — it also reminded me there’s no shame in asking an LLM for help; after all, it’s a tool like any other.</p>
+    <p><strong>4) Prepping and Planning:</strong> Learning the importance of coming prepared — with the right hardware, VMs, and dongles set up — so I can maximize my time learning and experimenting. Also, realizing the importance of saying “NO” to brain juice. You may be wondering what that is — but considering it’s DEF CON, I was offered this, and I’ll just leave it up to your imagination.</p>
   </div>
 </div>
           </li>
