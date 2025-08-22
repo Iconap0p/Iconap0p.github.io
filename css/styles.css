@@ -10970,3 +10970,11 @@ section.resume-section .resume-section-content {
     padding-bottom: 5rem;
   }
 }
+
+.rotate-arrow {
+  transition: transform 0.3s ease;
+  display: inline-block; /* required for transform to work reliably */
+}
+.rotate-arrow.down {
+  transform: rotate(90deg);
+}

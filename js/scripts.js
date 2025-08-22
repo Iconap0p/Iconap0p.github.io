@@ -32,3 +32,24 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+// ===== Rotate arrows on collapse expand/collapse =====
+    document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (trigger) {
+        var href = trigger.getAttribute('href') || trigger.getAttribute('data-bs-target');
+        if (!href) return;
+
+        var target = document.querySelector(href);
+        var icon = trigger.querySelector('.rotate-arrow');
+        if (!target || !icon) return;
+
+        // If it starts open, rotate immediately
+        if (target.classList.contains('show')) icon.classList.add('down');
+
+        target.addEventListener('show.bs.collapse', function () {
+            icon.classList.add('down');
+        });
+        target.addEventListener('hide.bs.collapse', function () {
+            icon.classList.remove('down');
+        });
+    });
+    // =====================================================
